@@ -1,0 +1,6 @@
+@ConferenceRooms_HostAddress = http://localhost:5056
+
+GET {{ConferenceRooms_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
