@@ -7,17 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.31" />
+    <PackageReference Include="Npgsql" Version="8.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Middleware\" />
-    <Folder Include="Database\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Repositories\Interfaces\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
