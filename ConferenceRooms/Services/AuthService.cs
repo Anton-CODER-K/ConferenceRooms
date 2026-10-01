@@ -30,9 +30,7 @@ namespace ConferenceRooms.Services
         {
             if (string.IsNullOrWhiteSpace(request.Email))
             {
-                throw new BusinessException(
-                    "Email is required.",
-                    StatusCodes.Status400BadRequest);
+                throw new BusinessException("Email is required.", StatusCodes.Status400BadRequest);
             }
             if (request.Password.Length < 8)
             {
@@ -45,7 +43,7 @@ namespace ConferenceRooms.Services
             {
                 Email = request.Email,
                 PasswordHash = passwordHash,
-                RoleId = (int)Role.User,
+                RoleId = Role.User,
             };
 
             // Виклик метода для запису користувача в бд
@@ -60,6 +58,7 @@ namespace ConferenceRooms.Services
             return userId;
             
         }
+
         // Логін Користувача
         public async Task<TokensResponse> LoginAsync(LoginRequest request)
         {
@@ -93,6 +92,7 @@ namespace ConferenceRooms.Services
             };
 
         }
+
         // Метод для оновлення токена
         public async Task<TokensResponse> RefreshAsync(string refreshToken)
         {
@@ -108,9 +108,7 @@ namespace ConferenceRooms.Services
 
                 if (token == null)
                 {
-                    throw new BusinessException(
-                        "Invalid refresh token.",
-                        StatusCodes.Status401Unauthorized);
+                    throw new BusinessException("Invalid refresh token.", StatusCodes.Status401Unauthorized);
                 }
 
                 userId = token.UserId;
@@ -119,16 +117,12 @@ namespace ConferenceRooms.Services
 
                 if (affectedRows == 0)
                 {
-                    throw new BusinessException(
-                        "Invalid refresh token.",
-                        StatusCodes.Status401Unauthorized);
+                    throw new BusinessException("Invalid refresh token.", StatusCodes.Status401Unauthorized);
                 }
 
                 var role = await _authRepo.GetRolesUserByUserId(token.UserId, conn, tx);
 
-                accessToken = _jwtService.GenerateAccessToken(
-                    token.UserId,
-                    role);
+                accessToken = _jwtService.GenerateAccessToken(token.UserId, role);
 
                 newRefreshToken = GenerateToken();
 
@@ -137,9 +131,7 @@ namespace ConferenceRooms.Services
                 await _authRepo.InsertRefreshToken(userId, newRefreshTokenHash, conn, tx);
             });
 
-            _logger.LogInformation(
-                "Refresh token rotated for user {UserId}",
-                userId);
+            _logger.LogInformation("Refresh token rotated for user {UserId}", userId);
 
             return new TokensResponse
             {

@@ -2,6 +2,7 @@
 using ConferenceRooms.Repositories;
 using ConferenceRooms.Repositories.Interfaces;
 using ConferenceRooms.Services;
+using ConferenceRooms.Services.Interfaces;
 
 namespace ConferenceRooms.Extensions
 {
@@ -11,8 +12,14 @@ namespace ConferenceRooms.Extensions
             this IServiceCollection services)
         {
             services.AddScoped<AuthService>();
+            services.AddScoped<RoomService>();
             services.AddScoped<JwtService>();
-        
+            services.AddScoped<ServiceCatalog>();
+            services.AddScoped<BookingService>();
+            services.AddScoped<ReportService>();
+            services.AddScoped<IPricingService, PricingService>();
+
+
 
             return services;
         }
@@ -21,7 +28,12 @@ namespace ConferenceRooms.Extensions
             this IServiceCollection services)
         {
             services.AddScoped<IAuthRepository, AuthRepository>();
-            
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IPricingRepository, PricingRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
+
             return services;
         }
 

@@ -249,8 +249,42 @@ CREATE INDEX idx_booking_status_history_booking_id
 CREATE INDEX idx_pricing_rules_active
     ON pricing_rules(is_active);
 
+
 INSERT INTO roles(role_id, name)
-VALUES (1, 'User'), (2, 'Admin');
+VALUES
+    (1, 'User'),
+    (2, 'Admin');
+
 
 INSERT INTO booking_statuses(status_id, name)
-VALUES (1, 'Pending'), (2, 'Confirmed'), (3, 'Cancelled'), (4, 'Completed');
+VALUES
+    (1, 'Pending'),
+    (2, 'Confirmed'),
+    (3, 'Cancelled'),
+    (4, 'Completed');
+
+
+INSERT INTO rooms(name, capacity, hourly_rate, is_active)
+VALUES
+    ('Зал A', 50, 2000.00, TRUE),
+    ('Зал B', 100, 3500.00, TRUE),
+    ('Зал C', 30, 1500.00, TRUE);
+
+
+INSERT INTO services(name, price, is_active)
+VALUES
+    ('Проектор', 500.00, TRUE),
+    ('Wi-Fi', 300.00, TRUE),
+    ('Звукова система', 700.00, TRUE);
+
+INSERT INTO room_services (room_id, service_id)
+VALUES
+    (1, 1), 
+    (1, 2), 
+    (1, 3), 
+    (2, 1), 
+    (2, 2), 
+    (2, 3), 
+    (3, 1), 
+    (3, 2), 
+    (3, 3); 

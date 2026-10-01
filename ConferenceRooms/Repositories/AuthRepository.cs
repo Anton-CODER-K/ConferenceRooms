@@ -60,7 +60,7 @@ namespace ConferenceRooms.Repositories
                     UserId = reader.GetInt32(0),
                     Email = reader.GetString(1),
                     PasswordHash =  reader.GetString(2),
-                    RoleId = reader.GetInt32(3)
+                    RoleId = (Role)reader.GetInt32(3)
                 };
             }
 
@@ -92,8 +92,7 @@ namespace ConferenceRooms.Repositories
             // можна б було винести значення у функцію шоб вписувати до скількох днів але думаю шо воно для всіх однакове буде або винести у Config шоб можна було настраювати дні звідти
             var expiresAt = DateTime.UtcNow.AddDays(14);
 
-            cmd.Parameters.Add("@expires_at", NpgsqlDbType.TimestampTz)
-                .Value = expiresAt;
+            cmd.Parameters.Add("@expires_at", NpgsqlDbType.TimestampTz).Value = expiresAt;
 
             await cmd.ExecuteNonQueryAsync();
         }
